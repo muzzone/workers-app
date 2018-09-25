@@ -12,6 +12,7 @@ import {SystemModule} from './system/system.module';
 import {AuthGuard} from './core/auth.guard';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './common/classes/token.interceptor';
+import {WorkersService} from "./core/workers.service";
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import {TokenInterceptor} from './common/classes/token.interceptor';
   providers: [
     AuthService,
     AuthGuard,
+    WorkersService,
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,

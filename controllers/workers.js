@@ -3,7 +3,7 @@ const Worker = require('../models/Workers');
 // GET http://localhost:8080/api/workers
 module.exports.workers = async function (req, res) {
   try {
-    const workers = await Worker.find({}, {_id: 1, email: 1, name: 1});
+    const workers = await Worker.find({});
     res.send(workers);
   } catch (e) {
     console.log('get workers error', e);
@@ -13,7 +13,10 @@ module.exports.workers = async function (req, res) {
 
 // GET http://localhost:8080/api/workers/:id
 module.exports.getById = async function (req, res) {
-  const workers = await Worker.findOne({_id: req.params.id}, {_id: 1, email: 1, name: 1});
+  const workers = await Worker.findOne(
+    {_id: req.params.id},
+    {_id: 1, email: 1, name: 1}
+    );
   res.send(workers);
 };
 

@@ -7,7 +7,7 @@ router.get('/', passport.authenticate('jwt', { session: false}), workers.workers
 
 router.get('/:id', passport.authenticate('jwt', { session: false}), workers.getById);
 
-router.post('/:id', passport.authenticate('jwt', { session: false}), workers.addWorker);
+router.post('/', passport.authenticate('jwt', { session: false}), workers.addWorker);
 
 router.put('/:id', passport.authenticate('jwt', { session: false}), workers.updateWorker);
 

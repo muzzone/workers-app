@@ -1,0 +1,25 @@
+<form (ngSubmit)="submitForm()" [formGroup]="loginForm">
+  <mat-card-header>
+    <mat-card-title><h1>Login</h1></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="authForm">
+      <mat-form-field>
+        <input autocomplete="off" matInput placeholder="Email" formControlName="email">
+        <mat-error>
+          Please enter your login. At least 4 characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input autocomplete="off" matInput placeholder="Password" formControlName="pass" type="password">
+        <mat-error>
+          Please enter your password. At least 4 characters
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" [routerLink]="'/auth/registration'" type="button">Register</button>
+    <button mat-raised-button color="accent" type="submit">Login</button>
+  </mat-card-actions>
+</form>

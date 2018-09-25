@@ -59,6 +59,7 @@ module.exports.register = async function (req, res) {
           _id: savedUser._id,
           name: savedUser.name,
           email: savedUser.email
+          // TODO refactor this
         };
         const token = jwt.sign(user, keys.jwt, {expiresIn: 60 * 60});
 

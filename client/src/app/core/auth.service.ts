@@ -42,10 +42,6 @@ export class AuthService {
     return this.activeUser;
   }
 
-  isAuthenticated() {
-    return !!this.activeUser;
-  }
-
   logOut() {
     localStorage.removeItem('user');
     this.activeUser.next(null);

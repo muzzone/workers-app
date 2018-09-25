@@ -6,7 +6,7 @@ import { WorkersComponent } from './workers/workers.component'
 
 const routes: Routes = [
   {path: '', component: SystemComponent, canActivate: [AuthGuard], children: [
-      {path: 'workers', component: WorkersComponent}
+      {path: 'home', component: WorkersComponent}
     ]}
 ];
 

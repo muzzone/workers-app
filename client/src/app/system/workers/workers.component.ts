@@ -31,6 +31,14 @@ export class WorkersComponent implements OnInit, OnDestroy {
     });
   }
 
+  updateWorker(id) {
+    console.log(id)
+  }
+
+  deleteWorker(id) {
+    console.log(id);
+  }
+
   ngOnDestroy() {
     this.aSub ? this.aSub.unsubscribe() : null;
   }

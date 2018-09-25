@@ -5,9 +5,10 @@ import {SystemComponent} from './system.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import { WorkersComponent } from './workers/workers.component'
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-  imports: [SystemRoutingModule, CommonModule, MatTableModule, MatButtonModule],
+  imports: [SystemRoutingModule, CommonModule, MatTableModule, MatButtonModule, MatIconModule],
   declarations: [
     SystemComponent,
     WorkersComponent,

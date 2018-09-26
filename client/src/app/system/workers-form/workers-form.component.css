@@ -1,0 +1,10 @@
+.workersForm {
+  width: 800px;
+  margin: auto;
+}
+.full-width {
+  width: 100%;
+}
+.card-footer {
+  text-align: end;
+}

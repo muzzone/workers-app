@@ -8,12 +8,12 @@ import {Router} from '@angular/router';
 })
 
 export class SystemComponent implements OnInit{
-  router;
-  constructor(private _router: Router) {
-    this.router = _router;
-  }
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.router.navigate(['/home'])
+    if (this.router.url === '/') {
+      this.router.navigate(['/home'])
+    }
   }
 }

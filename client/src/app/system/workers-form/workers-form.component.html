@@ -1,0 +1,31 @@
+<mat-card class="workersForm">
+  <form (ngSubmit)="submitForm()" [formGroup]="form">
+    <mat-form-field class="full-width">
+      <input formControlName="name" matInput placeholder="Full Name" value="">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-select  placeholder="Gender" formControlName="gender">
+        <mat-option value="Male">Male</mat-option>
+        <mat-option value="Female">Female</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <textarea formControlName="contactInformation" matInput placeholder="Contact Information"></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input formControlName="salary" matInput placeholder="Salary" value="">
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <input formControlName="position" matInput placeholder="Position" value="">
+    </mat-form-field>
+
+    <div class="card-footer">
+      <button mat-raised-button color="accent" type="submit">Submit</button>
+    </div>
+
+  </form>
+</mat-card>

@@ -1,12 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/internal/Subscription";
 import {WorkersService} from "../../core/workers.service";
+import {Router} from "@angular/router";
 
 interface Worker {
   name: string;
   gender: string;
   contactInformation: string;
-  date: any;
+  date?: any;
   salary: string;
   position: string;
 }
@@ -22,7 +23,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['name', 'gender', 'contactInformation', 'date', 'salary', 'position', 'actions'];
   aSub: Subscription;
 
-  constructor(private workersService: WorkersService) { }
+  constructor(private workersService: WorkersService, private router: Router) { }
 
   ngOnInit() {
     this.aSub = this.workersService.getAll().subscribe((_workers: any) => {
@@ -31,8 +32,8 @@ export class WorkersComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateWorker(id) {
-    console.log(id)
+  editWorker(id) {
+    this.router.navigate(['/edit-worker/' + id]);
   }
 
   deleteWorker(id) {

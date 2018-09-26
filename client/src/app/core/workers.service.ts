@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {AuthService} from './auth.service';
 
 @Injectable()
@@ -9,8 +9,13 @@ export class WorkersService {
     this.authService.getActiveUser().subscribe(user => this.currentUser = user)
   };
 
-  getAll() {
-    return this.http.get('/api/workers/');
+  getAll(params: any = {}) {
+    return this.http.get(
+      '/api/workers/',
+      {params: new HttpParams({
+          fromObject: params
+        })}
+      );
   };
 
   getById(id) {
@@ -26,6 +31,6 @@ export class WorkersService {
   }
 
   delete(id) {
-    return this.http.delete('/api/workers/delete/' + id);
+    return this.http.delete('/api/workers/delete/' + id)
   }
 }

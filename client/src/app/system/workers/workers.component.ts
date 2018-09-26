@@ -14,12 +14,23 @@ export class WorkersComponent implements OnInit, OnDestroy {
 
   workers: Worker[] = [];
   displayedColumns: string[] = ['name', 'gender', 'contactInformation', 'date', 'salary', 'position', 'actions'];
-  aSub: Subscription;
+  offset = 0;
+  limit = 5;
+  wSub: Subscription;
 
   constructor(private workersService: WorkersService, private router: Router) { }
 
   ngOnInit() {
-    this.aSub = this.workersService.getAll().subscribe((_workers: any) => {
+    this.fetch()
+  }
+
+  fetch() {
+    const params = {
+      offset: this.offset,
+      limit: this.limit
+    };
+
+    this.wSub = this.workersService.getAll(params).subscribe((_workers: any) => {
       console.log(_workers);
       this.workers = _workers;
     });
@@ -30,11 +41,15 @@ export class WorkersComponent implements OnInit, OnDestroy {
   }
 
   deleteWorker(id) {
-    console.log(id);
+    this.workersService.delete(id).subscribe(res => {
+      console.log('deleted', res);
+      this.workers = this.workers.filter(item => item._id !== id)
+      // TODO notify
+    })
   }
 
   ngOnDestroy() {
-    this.aSub ? this.aSub.unsubscribe() : null;
+    this.wSub ? this.wSub.unsubscribe() : null;
   }
 
 }

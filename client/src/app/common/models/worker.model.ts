@@ -5,6 +5,7 @@ export class Worker {
     public contactInformation: string,
     public salary: string,
     public position: string,
+    public _id? : string,
     public date?: any,
   ) {}
 }

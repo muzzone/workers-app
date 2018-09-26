@@ -26,6 +26,7 @@ export class EditWorkerComponent implements OnInit {
     console.log('edit worker', worker);
     this.workersService.update(worker, this.workerId).subscribe(res => {
       console.log('worker updated', res);
+      // TODO notify
     })
   }
 }

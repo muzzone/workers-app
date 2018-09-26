@@ -13,13 +13,13 @@ export class AddWorkerComponent implements OnInit {
 
   constructor(private workersService: WorkersService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSubmit(worker) {
     console.log('add worker', worker);
     this.workersService.addNew(worker).subscribe(res => {
       console.log('worker added', res);
+      // TODO notify
     })
   }
 }

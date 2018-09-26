@@ -23,8 +23,8 @@ export class WorkersFormComponent implements OnInit {
   ngOnInit() {
     console.log('form init', this.worker);
     this.form = new FormGroup({
-      name: new FormControl(this.worker.name || '', [Validators.required, this.checkForLength]),
-      gender: new FormControl(this.worker.gender || '', [Validators.required, this.checkForLength]),
+      name: new FormControl(this.worker.name, [Validators.required, this.checkForLength]),
+      gender: new FormControl(this.worker.gender, [Validators.required, this.checkForLength]),
       contactInformation: new FormControl(this.worker.contactInformation, [Validators.required, this.checkForLength]),
       salary: new FormControl(this.worker.salary, [Validators.required, this.checkForLength]),
       position: new FormControl(this.worker.position, [Validators.required, this.checkForLength]),

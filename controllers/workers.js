@@ -1,6 +1,6 @@
 const Worker = require('../models/Workers');
 
-// GET http://localhost:8080/api/workers
+// GET http://localhost:8080/api/workers?offset=2&limit=5
 module.exports.workers = async function (req, res) {
   try {
     const workers = await Worker.find({});
@@ -17,7 +17,7 @@ module.exports.getById = async function (req, res) {
   res.send(workers);
 };
 
-// POST http://localhost:8080/api/workers/:id
+// POST http://localhost:8080/api/workers/
 module.exports.addWorker = async function (req, res) {
   const worker = new Worker({
     name : req.body.name,

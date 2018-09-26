@@ -1,5 +1,6 @@
-<p>
-  edit-worker works!
-  worker id = {{workerId}}
-</p>
-<app-workers-form></app-workers-form>
+<app-workers-form
+  *ngIf="worker"
+  [worker]="worker"
+  [title]="'Edit Worker'"
+  (submit)="onSubmit($event)"
+></app-workers-form>

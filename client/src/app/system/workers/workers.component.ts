@@ -2,15 +2,8 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/internal/Subscription";
 import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
+import {Worker} from "../../common/models/worker.model";
 
-interface Worker {
-  name: string;
-  gender: string;
-  contactInformation: string;
-  date?: any;
-  salary: string;
-  position: string;
-}
 
 @Component({
   selector: 'app-workers',

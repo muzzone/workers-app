@@ -1,4 +1,5 @@
-<p>
-  add-worker works!
-</p>
-<app-workers-form></app-workers-form>
+<app-workers-form
+  [worker]="worker"
+  [title]="'Add New'"
+  (submit)="onSubmit($event)"
+></app-workers-form>

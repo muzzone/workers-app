@@ -13,10 +13,7 @@ module.exports.workers = async function (req, res) {
 
 // GET http://localhost:8080/api/workers/:id
 module.exports.getById = async function (req, res) {
-  const workers = await Worker.findOne(
-    {_id: req.params.id},
-    {_id: 1, email: 1, name: 1}
-    );
+  const workers = await Worker.findOne({_id: req.params.id});
   res.send(workers);
 };
 

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Worker} from "../../common/models/worker.model";
 
 @Component({
   selector: 'app-workers-form',
@@ -7,23 +8,32 @@ import {FormControl, FormGroup, NgForm, Validators} from '@angular/forms';
   styleUrls: ['./workers-form.component.css']
 })
 export class WorkersFormComponent implements OnInit {
+  @Input()
+  worker: Worker;
+  @Input()
+  title: string;
+
+  @Output()
+  submit = new EventEmitter;
 
   form: FormGroup;
 
   constructor() { }
 
   ngOnInit() {
+    console.log('form init', this.worker);
     this.form = new FormGroup({
-      name: new FormControl('', [Validators.email, this.checkForLength]),
-      gender: new FormControl('', [Validators.required, this.checkForLength]),
-      contactInformation: new FormControl('', [Validators.required, this.checkForLength]),
-      salary: new FormControl('', [Validators.required, this.checkForLength]),
-      position: new FormControl('', [Validators.required, this.checkForLength]),
+      name: new FormControl(this.worker.name || '', [Validators.required, this.checkForLength]),
+      gender: new FormControl(this.worker.gender || '', [Validators.required, this.checkForLength]),
+      contactInformation: new FormControl(this.worker.contactInformation, [Validators.required, this.checkForLength]),
+      salary: new FormControl(this.worker.salary, [Validators.required, this.checkForLength]),
+      position: new FormControl(this.worker.position, [Validators.required, this.checkForLength]),
     });
   }
 
-  submitForm() {
-    console.log(this.form.value)
+  submitForm(event) {
+    event.stopPropagation();
+    this.submit.emit(this.form.value);
   }
 
   checkForLength(control: FormControl) {

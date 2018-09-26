@@ -1,30 +1,36 @@
 <mat-card class="workersForm">
-  <form (ngSubmit)="submitForm()" [formGroup]="form">
+  <h2 class="workersFormTitle">{{title}}</h2>
+  <form (ngSubmit)="submitForm($event)" [formGroup]="form">
     <mat-form-field class="full-width">
-      <input formControlName="name" matInput placeholder="Full Name" value="">
+      <input formControlName="name" matInput placeholder="Full Name" value="{{worker.name}}">
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <mat-select  placeholder="Gender" formControlName="gender">
-        <mat-option value="Male">Male</mat-option>
-        <mat-option value="Female">Female</mat-option>
+      <mat-select  placeholder="Gender" formControlName="gender" value="{{worker.gender}}">
+        <mat-option value="male">Male</mat-option>
+        <mat-option value="female">Female</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <textarea formControlName="contactInformation" matInput placeholder="Contact Information"></textarea>
+      <textarea
+        formControlName="contactInformation"
+        matInput
+        placeholder="Contact Information"
+        value="{{worker.contactInformation}}">
+      </textarea>
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <input formControlName="salary" matInput placeholder="Salary" value="">
+      <input formControlName="salary" matInput placeholder="Salary" value="{{worker.salary}}">
     </mat-form-field>
 
     <mat-form-field class="full-width">
-      <input formControlName="position" matInput placeholder="Position" value="">
+      <input formControlName="position" matInput placeholder="Position" value="{{worker.position}}">
     </mat-form-field>
 
     <div class="card-footer">
-      <button mat-raised-button color="accent" type="submit">Submit</button>
+      <button mat-raised-button color="primary" type="submit">Submit</button>
     </div>
 
   </form>

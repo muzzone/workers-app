@@ -14,6 +14,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from "@angular/material";
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MomentModule} from "angular2-moment";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MomentModule
   ],
   declarations: [
     SystemComponent,

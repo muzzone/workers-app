@@ -3,6 +3,7 @@ import {Subscription} from "rxjs/internal/Subscription";
 import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
 import {Worker} from "../../common/models/worker.model";
+import {PageEvent} from '@angular/material';
 
 
 @Component({
@@ -14,9 +15,9 @@ export class WorkersComponent implements OnInit, OnDestroy {
 
   workers: Worker[] = [];
   displayedColumns: string[] = ['name', 'gender', 'contactInformation', 'date', 'salary', 'position', 'actions'];
-  offset = 0;
-  limit = 5;
   wSub: Subscription;
+  pageEvent: PageEvent;
+  workersLength: number = 0;
 
   constructor(private workersService: WorkersService, private router: Router) { }
 
@@ -24,17 +25,23 @@ export class WorkersComponent implements OnInit, OnDestroy {
     this.fetch()
   }
 
-  fetch() {
-    const params = {
-      offset: this.offset,
-      limit: this.limit
-    };
-
-    this.wSub = this.workersService.getAll(params).subscribe((_workers: any) => {
-      console.log(_workers);
-      this.workers = _workers;
+  fetch(params = {}) {
+    this.wSub = this.workersService.getAll(params).subscribe((response: any) => {
+      console.log(response);
+      this.workers = response.docs;
+      this.workersLength = response.total
     });
   }
+
+  pagination(event) {
+    const params = {
+      page: event.pageIndex + 1,
+      limit: event.pageSize
+    };
+    console.log(event);
+    this.fetch(params)
+  };
+
 
   editWorker(id) {
     this.router.navigate(['/edit-worker/' + id]);

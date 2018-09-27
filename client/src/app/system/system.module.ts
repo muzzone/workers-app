@@ -11,10 +11,14 @@ import {EditWorkerComponent} from './edit-worker/edit-worker.component';
 import {WorkersFormComponent} from './workers-form/workers-form.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from "@angular/material";
+import {MatNativeDateModule, MatSelectModule} from "@angular/material";
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentModule} from "angular2-moment";
+import { WorkersSearchComponent } from './workers-search/workers-search.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -30,7 +34,11 @@ import {MomentModule} from "angular2-moment";
     FormsModule,
     ReactiveFormsModule,
     MatPaginatorModule,
-    MomentModule
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatExpansionModule,
+    MomentModule,
+    MatDividerModule
   ],
   declarations: [
     SystemComponent,
@@ -38,6 +46,7 @@ import {MomentModule} from "angular2-moment";
     AddWorkerComponent,
     EditWorkerComponent,
     WorkersFormComponent,
+    WorkersSearchComponent,
   ]
 })
 

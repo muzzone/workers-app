@@ -42,7 +42,6 @@ export class WorkersComponent implements OnInit, OnDestroy {
     this.fetch(params)
   };
 
-
   editWorker(id) {
     this.router.navigate(['/edit-worker/' + id]);
   }
@@ -50,7 +49,8 @@ export class WorkersComponent implements OnInit, OnDestroy {
   deleteWorker(id) {
     this.workersService.delete(id).subscribe(res => {
       console.log('deleted', res);
-      this.workers = this.workers.filter(item => item._id !== id)
+      this.workers = this.workers.filter(item => item._id !== id);
+      this.workersLength --;
       // TODO notify
     })
   }

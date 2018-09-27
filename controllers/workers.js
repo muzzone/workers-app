@@ -21,6 +21,7 @@ module.exports.workers = async function (req, res) {
 // GET http://localhost:8080/api/workers/:id
 module.exports.getById = async function (req, res) {
   const workers = await Worker.findOne({_id: req.params.id});
+  // TODO try catch
   res.send(workers);
 };
 
@@ -57,5 +58,6 @@ module.exports.updateWorker = function (req, res) {
 // DELETE http://localhost:8080/api/workers/delete/:id
 module.exports.delete = async function (req, res) {
   const response = await Worker.deleteOne({_id: req.params.id});
+  // TODO try catch
   res.send(response);
 };

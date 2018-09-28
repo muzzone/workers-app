@@ -8,7 +8,19 @@ module.exports.workers = async function (req, res) {
     page: parseInt(page, 10),
     limit: parseInt(limit, 10)
   };
-  let query = {};
+  const query = {};
+
+  req.query.name ? query.name = new RegExp(req.query.name, 'i') : null;
+  req.query.gender ? query.gender = new RegExp(req.query.gender, 'i') : null;
+  req.query.contactInformation ? query.contactInformation = new RegExp(req.query.contactInformation, 'i') : null;
+  req.query.position ? query.position = new RegExp(req.query.position, 'i'): null;
+  req.query.salary ? query.salary = new RegExp(req.query.salary, 'i'): null;
+  req.query.dateFrom ? query.date = {$gte: req.query.dateFrom} : null;
+  if (req.query.dateTo) {
+    !query.date ? query.date = {} : null;
+    query.date.$lte = req.query.dateTo;
+  }
+
 
   try {
     const workers = await Worker.paginate(query, pagination);

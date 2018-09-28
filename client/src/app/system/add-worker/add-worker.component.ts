@@ -19,7 +19,7 @@ export class AddWorkerComponent implements OnInit {
     console.log('add worker', worker);
     this.workersService.addNew(worker).subscribe(res => {
       console.log('worker added', res);
-      // TODO notify
+      // TODO notify and redirect
     })
   }
 }

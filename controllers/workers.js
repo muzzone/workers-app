@@ -1,16 +1,17 @@
 const Worker = require('../models/Workers');
 
-// GET http://localhost:8080/api/workers?apge=2&limit=5
+// GET http://localhost:8080/api/workers?name=name&gender=male&contactInformation=info&salary=100&position=dev&dateFrom=Sun%20Sep%2002%202018%2000:00:00%20GMT+0300%20(EEST)&dateTo=Fri%20Sep%2028%202018%2000:00:00%20GMT+0300%20(EEST)&page=2&limit=5
 module.exports.workers = async function (req, res) {
   const page = req.query.page || 1;
   const limit = req.query.limit || 10;
   const pagination = {
-      page: parseInt(page, 10),
-      limit: parseInt(limit, 10)
+    page: parseInt(page, 10),
+    limit: parseInt(limit, 10)
   };
+  let query = {};
 
   try {
-    const workers = await Worker.paginate({}, pagination);
+    const workers = await Worker.paginate(query, pagination);
     res.send(workers);
   } catch (e) {
     console.log('get workers error', e);

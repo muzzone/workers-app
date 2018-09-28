@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
+import 'rxjs-compat'
 
 @Component({
   selector: 'app-workers-search',
@@ -7,6 +8,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./workers-search.component.css']
 })
 export class WorkersSearchComponent implements OnInit {
+  @Output()
+  searchChange = new EventEmitter;
 
   searchForm: FormGroup;
 
@@ -22,6 +25,9 @@ export class WorkersSearchComponent implements OnInit {
       dateFrom: new FormControl(),
       dateTo: new FormControl()
     });
-  }
 
+    this.searchForm.valueChanges.debounceTime(400).subscribe((form) => {
+      this.searchChange.emit(form);
+    })
+  }
 }

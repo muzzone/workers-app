@@ -11,7 +11,7 @@ module.exports.login = async function (req, res) {
     if (passwordResult) {
       const token = jwt.sign({
         email: candidate.email,
-        name: candidate.name,
+        login: candidate.login,
         _id: candidate._id
       }, keys.jwt, {expiresIn: 60 * 60});
       res.send({
@@ -33,7 +33,7 @@ module.exports.login = async function (req, res) {
 // POST localhost:8080/api/register
 // body: {
 // 	"email": mail,
-// 	"name": name,
+// 	"login": login,
 // 	"pass": 123
 // }
 module.exports.register = async function (req, res) {
@@ -49,7 +49,7 @@ module.exports.register = async function (req, res) {
     const pass = req.body.pass;
     const user = new User({
       email: req.body.email,
-      name : req.body.name,
+      login : req.body.login,
       pass : bcrypt.hashSync(pass, salt)
     });
     user.save()
@@ -57,7 +57,7 @@ module.exports.register = async function (req, res) {
 
         const user = {
           _id: savedUser._id,
-          name: savedUser.name,
+          login: savedUser.login,
           email: savedUser.email
           // TODO refactor this
         };

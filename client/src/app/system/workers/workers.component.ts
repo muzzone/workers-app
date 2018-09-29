@@ -4,6 +4,7 @@ import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
 import {Worker} from "../../common/models/worker.model";
 import {PageEvent} from '@angular/material';
+import {ViewChild, ElementRef} from '@angular/core';
 
 
 @Component({
@@ -12,6 +13,8 @@ import {PageEvent} from '@angular/material';
   styleUrls: ['./workers.component.css']
 })
 export class WorkersComponent implements OnInit, OnDestroy {
+
+  @ViewChild('paginator') paginator: ElementRef;
 
   workers: Worker[] = [];
   displayedColumns: string[] = ['name', 'gender', 'contactInformation', 'date', 'salary', 'position', 'actions'];
@@ -62,6 +65,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   }
 
   search(form) {
+    this.paginator.firstPage();
     const params = {};
     Object.keys(form).forEach(i => {
       form[i] ? params[i] = form[i] : null;

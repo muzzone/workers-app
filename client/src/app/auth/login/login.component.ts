@@ -15,24 +15,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      login: new FormControl('', [Validators.required, this.checkForLength]),
-      pass: new FormControl('', [Validators.required, this.checkForLength]),
+      login: new FormControl(''),
+      pass: new FormControl(''),
     });
   }
 
   submitForm() {
-    // TODO validate
     this.authService.logIn(this.loginForm.value)
-      // .subscribe(res => console.log(res))
-  }
-
-  checkForLength(control: FormControl) {
-    if (control.value.length <= 3) {
-      return {
-        'lengthError': true
-      };
-    }
-    return null;
   }
 
 }

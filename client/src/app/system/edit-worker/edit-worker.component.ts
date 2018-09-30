@@ -30,9 +30,7 @@ export class EditWorkerComponent implements OnInit {
   }
 
   onSubmit(worker) {
-    console.log('edit worker', worker);
     this.workersService.update(worker, this.workerId).subscribe(res => {
-      console.log('worker updated', res);
       this.snotifyService.success('Worker updated', {position: 'rightTop'});
     },e => {
       this.snotifyService.error('Something went wrong!', {position: 'rightTop'})

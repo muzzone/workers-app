@@ -26,6 +26,6 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-raised-button color="primary" [routerLink]="'/auth/login'" type="button">Login</button>
-    <button mat-raised-button color="accent" type="submit">Submit</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="registrationFrom.invalid">Submit</button>
   </mat-card-actions>
 </form>

@@ -48,8 +48,12 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
 <!--TODO add loader-->
-<!--TODO show empty div if !workers-->
+
+<mat-card *ngIf="!workers.length">
+  <mat-card-title style="text-align: center">Nothing to show</mat-card-title>
+</mat-card>
 
 <br>
 <mat-paginator #paginator

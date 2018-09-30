@@ -17,12 +17,9 @@ export class AddWorkerComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(worker) {
-    console.log('add worker', worker);
     this.workersService.addNew(worker).subscribe(res => {
-      console.log('worker added', res);
       this.snotifyService.success('Worker added', {position: 'rightTop'});
     }, e => {
-      console.log(e);
       this.snotifyService.error('Something went wrong!', {position: 'rightTop'})
     })
   }

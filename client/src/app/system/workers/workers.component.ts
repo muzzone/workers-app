@@ -36,9 +36,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   }
 
   fetch(params = {}) {
-    console.log('fetch', params);
     this.wSub = this.workersService.getAll(params).subscribe((response: any) => {
-      console.log(response);
       this.workers = response.docs;
       this.workersLength = response.total
     });
@@ -62,7 +60,6 @@ export class WorkersComponent implements OnInit, OnDestroy {
 
   deleteWorker(id) {
     this.workersService.delete(id).subscribe(res => {
-      console.log('deleted', res);
       this.workers = this.workers.filter(item => item._id !== id);
       this.workersLength --;
       this.snotifyService.success('Deleted', {position: 'rightTop'});

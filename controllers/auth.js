@@ -9,16 +9,16 @@ module.exports.login = async function (req, res) {
   if (candidate) {
     const passwordResult = bcrypt.compareSync(req.body.pass.toString(), candidate.pass.toString());
     if (passwordResult) {
-      const token = jwt.sign({
+      const user = {
         email: candidate.email,
         login: candidate.login,
         _id: candidate._id
-      }, keys.jwt, {expiresIn: 60 * 60});
+      };
+      const token = jwt.sign(user, keys.jwt, {expiresIn: 60 * 60});
       res.send({
-        user: candidate,
+        user,
         token: `Bearer ${token}`
       });
-      // TODO remove pass from response
     } else {
       res.status(401).json({
         message: 'Wrong password'
@@ -72,9 +72,7 @@ module.exports.register = async function (req, res) {
           user,
           token : `Bearer ${token}`
         };
-
         res.status(200).json(response);
-        // TODO remove pass from response
       })
       .catch(e => {
           console.log('create user err', e),

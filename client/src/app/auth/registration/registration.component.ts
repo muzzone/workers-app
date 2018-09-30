@@ -22,10 +22,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   submitForm() {
-    // TODO validate
-    console.log(this.registrationFrom.value);
-    this.authService.signUp(this.registrationFrom.value)
-      // .subscribe(res => console.log(res));
+    if (this.registrationFrom.valid) {
+      this.authService.signUp(this.registrationFrom.value)
+    }
   }
 
   checkForLength(control: FormControl) {

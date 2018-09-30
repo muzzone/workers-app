@@ -10,6 +10,7 @@ const userSchema = new Schema({
   login: {
     type: String,
     required: true,
+    unique: true
   },
   pass: {
     type: String,

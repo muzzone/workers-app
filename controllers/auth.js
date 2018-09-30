@@ -4,7 +4,7 @@ const User = require('../models/Users');
 const keys = require('../config/keys');
 
 module.exports.login = async function (req, res) {
-  const candidate = await User.findOne({email: req.body.email});
+  const candidate = await User.findOne({login: req.body.login});
 
   if (candidate) {
     const passwordResult = bcrypt.compareSync(req.body.pass.toString(), candidate.pass.toString());
@@ -18,14 +18,15 @@ module.exports.login = async function (req, res) {
         user: candidate,
         token: `Bearer ${token}`
       });
+      // TODO remove pass from response
     } else {
       res.status(401).json({
-        message: 'wrong password'
+        message: 'Wrong password'
       })
     }
   } else {
     res.status(404).json({
-      message: 'Email not found'
+      message: 'User not found'
     })
   }
 };
@@ -37,12 +38,17 @@ module.exports.login = async function (req, res) {
 // 	"pass": 123
 // }
 module.exports.register = async function (req, res) {
-  const candidate = await User.findOne({email: req.body.email});
+  const candidateEmail = await User.findOne({email: req.body.email});
+  const candidateLogin = await User.findOne({login: req.body.login});
   console.log('request body', req.body);
 
-  if (candidate) {
+  if (candidateEmail) {
     res.status(409).json({
       message: 'Email already used'
+    })
+  } else if (candidateLogin){
+    res.status(409).json({
+      message: 'Login already used'
     })
   } else {
     const salt = bcrypt.genSaltSync(10);
@@ -59,7 +65,6 @@ module.exports.register = async function (req, res) {
           _id: savedUser._id,
           login: savedUser.login,
           email: savedUser.email
-          // TODO refactor this
         };
         const token = jwt.sign(user, keys.jwt, {expiresIn: 60 * 60});
 
@@ -69,7 +74,11 @@ module.exports.register = async function (req, res) {
         };
 
         res.status(200).json(response);
+        // TODO remove pass from response
       })
-      .catch(e => {console.log('create user err', e)});
+      .catch(e => {
+          console.log('create user err', e),
+          res.status(400).json({message: 'Something went wrong!'})
+      });
   }
 };

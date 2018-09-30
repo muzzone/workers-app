@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {WorkersService} from "../../core/workers.service";
 import {Worker} from "../../common/models/worker.model";
+import {SnotifyService} from 'ng-snotify';
 
 @Component({
   selector: 'app-edit-worker',
@@ -13,12 +14,18 @@ export class EditWorkerComponent implements OnInit {
   workerId: string;
   worker: Worker;
 
-  constructor(private route: ActivatedRoute, private workersService: WorkersService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private workersService: WorkersService,
+    private snotifyService: SnotifyService
+  ) {}
 
   ngOnInit() {
     this.workerId = this.route.snapshot.paramMap.get('id');
     this.workersService.getById(this.workerId).subscribe((worker: Worker)  => {
       this.worker = worker
+    }, e => {
+      this.snotifyService.error(e.error.message, {position: 'rightTop'})
     })
   }
 
@@ -26,7 +33,9 @@ export class EditWorkerComponent implements OnInit {
     console.log('edit worker', worker);
     this.workersService.update(worker, this.workerId).subscribe(res => {
       console.log('worker updated', res);
-      // TODO notify and redirect
+      this.snotifyService.success('Worker updated', {position: 'rightTop'});
+    },e => {
+      this.snotifyService.error('Something went wrong!', {position: 'rightTop'})
     })
   }
 }

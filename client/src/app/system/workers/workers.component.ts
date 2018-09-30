@@ -4,7 +4,8 @@ import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
 import {Worker} from "../../common/models/worker.model";
 import {PageEvent} from '@angular/material';
-import {ViewChild, ElementRef} from '@angular/core';
+import {SnotifyService} from 'ng-snotify';
+import {ViewChild} from '@angular/core';
 
 
 @Component({
@@ -14,7 +15,7 @@ import {ViewChild, ElementRef} from '@angular/core';
 })
 export class WorkersComponent implements OnInit, OnDestroy {
 
-  @ViewChild('paginator') paginator: ElementRef;
+  @ViewChild('paginator') paginator;
 
   workers: Worker[] = [];
   displayedColumns: string[] = ['name', 'gender', 'contactInformation', 'date', 'salary', 'position', 'actions'];
@@ -24,7 +25,11 @@ export class WorkersComponent implements OnInit, OnDestroy {
   searchParams: object = {};
   paginationParams: object = {};
 
-  constructor(private workersService: WorkersService, private router: Router) { }
+  constructor(
+    private workersService: WorkersService,
+    private router: Router,
+    private snotifyService: SnotifyService
+  ) {}
 
   ngOnInit() {
     this.fetch()
@@ -60,18 +65,20 @@ export class WorkersComponent implements OnInit, OnDestroy {
       console.log('deleted', res);
       this.workers = this.workers.filter(item => item._id !== id);
       this.workersLength --;
-      // TODO notify
+      this.snotifyService.success('Deleted', {position: 'rightTop'});
+    }, e => {
+      this.snotifyService.error('Something went wrong!', {position: 'rightTop'})
     })
   }
 
   search(form) {
-    this.paginator.firstPage();
     const params = {};
     Object.keys(form).forEach(i => {
       form[i] ? params[i] = form[i] : null;
     });
     this.searchParams = params;
     this.fetch(this.getParams());
+    this.paginator.firstPage();
   }
 
   ngOnDestroy() {

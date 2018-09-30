@@ -13,6 +13,8 @@ import {AuthGuard} from './core/auth.guard';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {TokenInterceptor} from './common/classes/token.interceptor';
 import {WorkersService} from "./core/workers.service";
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import {WorkersService} from "./core/workers.service";
     SystemModule,
     MatToolbarModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    SnotifyModule
   ],
   providers: [
     AuthService,
@@ -38,7 +41,12 @@ import {WorkersService} from "./core/workers.service";
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: TokenInterceptor
-    }
+    },
+    {
+      provide: 'SnotifyToastConfig',
+      useValue: ToastDefaults
+    },
+    SnotifyService
     ],
   bootstrap: [AppComponent]
 })

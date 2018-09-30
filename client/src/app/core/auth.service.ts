@@ -2,12 +2,17 @@ import {Injectable} from '@angular/core';
 import {ReplaySubject} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {Router} from '@angular/router';
+import {SnotifyService} from 'ng-snotify';
 
 
 @Injectable()
 export class AuthService {
   private activeUser = new ReplaySubject(1);
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private snotifyService: SnotifyService
+  ) {
     const savedUser = localStorage.getItem('user');
     savedUser ? this.activeUser.next(JSON.parse(savedUser)) : this.activeUser.next(null);
   }
@@ -19,6 +24,8 @@ export class AuthService {
           this.setActiveUser(res.user, res.token);
           this.router.navigate(['/']);
         }
+      }, e => {
+        this.snotifyService.error(e.error.message, {position: 'rightTop'})
       })
   }
 
@@ -29,6 +36,8 @@ export class AuthService {
           this.setActiveUser(res.user, res.token);
           this.router.navigate(['/']);
         }
+      }, e => {
+        this.snotifyService.error(e.error.message, {position: 'rightTop'})
       });
   }
 

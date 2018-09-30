@@ -12,12 +12,15 @@ const usersRouter = require('./routes/users');
 const workersRouter = require('./routes/workers');
 
 const app = express();
+app.set('view engine', 'html');
+
 mongoose.connect('mongodb://localhost/workers-app')
   .then(() => {console.log('MongoDB connected')})
   .catch(err => console.log(err));
 
 app.use(passport.initialize());
 require('./middleware/passport')(passport);
+app.use('/uploads', express.static('uploads'))
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -30,6 +33,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/', authRouter);
 app.use('/api/users/', usersRouter);
 app.use('/api/workers/', workersRouter);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/dist/workers-app'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(
+      path.resolve(
+        __dirname, 'client', 'dist', 'workers-app', 'index.html'
+      )
+    )
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

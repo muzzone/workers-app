@@ -3,7 +3,6 @@ import {Subscription} from "rxjs/internal/Subscription";
 import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
 import {Worker} from "../../common/models/worker.model";
-import {PageEvent} from '@angular/material';
 import {SnotifyService} from 'ng-snotify';
 import {ViewChild} from '@angular/core';
 
@@ -15,12 +14,12 @@ import {ViewChild} from '@angular/core';
 })
 export class WorkersComponent implements OnInit, OnDestroy {
 
-  @ViewChild('paginator') paginator;
+  @ViewChild('paginator')
+  paginator: any;
 
   workers: Worker[] = [];
   displayedColumns: string[] = ['name', 'contactInformation', 'salary', 'position', 'date', 'gender', 'actions'];
   wSub: Subscription;
-  pageEvent: PageEvent;
   workersLength: number = 0;
   searchParams: object = {};
   paginationParams: object = {};

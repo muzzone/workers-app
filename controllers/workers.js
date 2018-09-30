@@ -15,13 +15,16 @@ module.exports.workers = async function (req, res) {
   req.query.gender ? query.gender = req.query.gender : null;
   req.query.contactInformation ? query.contactInformation = new RegExp(req.query.contactInformation, 'i') : null;
   req.query.position ? query.position = new RegExp(req.query.position, 'i'): null;
-  req.query.salary ? query.salary = new RegExp(req.query.salary, 'i'): null;
+  req.query.salaryMin ? query.salary = {$gte : req.query.salaryMin}: null;
   req.query.dateFrom ? query.date = {$gte: req.query.dateFrom} : null;
+  if (req.query.salaryMax) {
+    !query.salary? query.salary = {} : null;
+    query.salary.$lte = req.query.salaryMax
+  }
   if (req.query.dateTo) {
     !query.date ? query.date = {} : null;
     query.date.$lte = req.query.dateTo;
   }
-
 
   try {
     const workers = await Worker.paginate(query, pagination);
@@ -48,7 +51,7 @@ module.exports.addWorker = async function (req, res) {
     name : req.body.name,
     gender: req.body.gender,
     contactInformation: req.body.contactInformation,
-    salary: req.body.salary,
+    salary: parseInt(req.body.salary, 10),
     position: req.body.position
   });
   worker.save()

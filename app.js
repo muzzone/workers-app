@@ -12,7 +12,7 @@ const usersRouter = require('./routes/users');
 const workersRouter = require('./routes/workers');
 
 const app = express();
-mongoose.connect('mongodb://localhost/my-app')
+mongoose.connect('mongodb://localhost/workers-app')
   .then(() => {console.log('MongoDB connected')})
   .catch(err => console.log(err));
 

@@ -20,7 +20,7 @@ const workerSchema = new Schema({
     default: Date.now
   },
   salary: {
-    type: String,
+    type: Number,
     required: true,
   },
   position: {

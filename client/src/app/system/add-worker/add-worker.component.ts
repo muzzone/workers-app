@@ -10,7 +10,7 @@ import {SnotifyService} from 'ng-snotify';
 })
 export class AddWorkerComponent implements OnInit {
 
-  worker = new Worker('','','','','');
+  worker = new Worker('','','',0,'');
 
   constructor(private workersService: WorkersService, private snotifyService: SnotifyService) { }
 

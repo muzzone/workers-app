@@ -18,7 +18,7 @@ export class WorkersComponent implements OnInit, OnDestroy {
   @ViewChild('paginator') paginator;
 
   workers: Worker[] = [];
-  displayedColumns: string[] = ['name', 'gender', 'contactInformation', 'date', 'salary', 'position', 'actions'];
+  displayedColumns: string[] = ['name', 'contactInformation', 'salary', 'position', 'date', 'gender', 'actions'];
   wSub: Subscription;
   pageEvent: PageEvent;
   workersLength: number = 0;
@@ -48,10 +48,10 @@ export class WorkersComponent implements OnInit, OnDestroy {
     return {...this.searchParams, ...this.paginationParams}
   }
 
-  pagination(event) {
+  pagination(paginator) {
     this.paginationParams = {
-      page: event.pageIndex + 1,
-      limit: event.pageSize
+      page: paginator.pageIndex + 1,
+      limit: paginator.pageSize
     };
     this.fetch(this.getParams());
   };

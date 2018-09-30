@@ -15,6 +15,7 @@ import {MatNativeDateModule, MatSelectModule} from "@angular/material";
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MomentModule} from "angular2-moment";
 import { WorkersSearchComponent } from './workers-search/workers-search.component';
@@ -37,6 +38,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatDatepickerModule,
     MatNativeDateModule,
     MatExpansionModule,
+    MatTooltipModule,
     MomentModule,
     MatDividerModule
   ],

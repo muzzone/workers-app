@@ -20,11 +20,9 @@ export class AuthGuard  implements CanActivate, CanActivateChild {
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return !!this.user
-    //TODO if !user redirect to login page
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return !!this.user
-    //TODO if !user redirect to login page
   }
 }

@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
+    // TODO validate
     this.authService.logIn(this.loginForm.value)
       // .subscribe(res => console.log(res))
   }

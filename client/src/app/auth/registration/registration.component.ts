@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   submitForm() {
+    // TODO validate
     console.log(this.registrationFrom.value);
     this.authService.signUp(this.registrationFrom.value)
       // .subscribe(res => console.log(res));

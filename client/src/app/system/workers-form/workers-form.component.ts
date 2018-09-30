@@ -32,6 +32,7 @@ export class WorkersFormComponent implements OnInit {
   }
 
   submitForm(event) {
+    // TODO validate
     event.stopPropagation();
     this.submit.emit(this.form.value);
   }

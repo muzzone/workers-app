@@ -1,10 +1,5 @@
 # Workers App
 
-## requirements
-
-* node.js v10+
-* mongo
-
 ## Quick start
 
 1 `npm install`

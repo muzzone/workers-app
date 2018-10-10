@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Worker} from "../../common/models/worker.model";
+import {Worker} from "../../shared/models/worker.model";
 
 @Component({
   selector: 'app-workers-form',

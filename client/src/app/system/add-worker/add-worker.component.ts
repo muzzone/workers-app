@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Worker} from "../../common/models/worker.model";
+import {Worker} from "../../shared/models/worker.model";
 import {WorkersService} from "../../core/workers.service";
 import {SnotifyService} from 'ng-snotify';
 

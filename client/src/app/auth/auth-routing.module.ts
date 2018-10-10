@@ -5,15 +5,15 @@ import {RegistrationComponent} from './registration/registration.component';
 import {AuthComponent} from './auth.component';
 
 const routes: Routes = [
-  {path: 'auth', redirectTo: 'auth/login', pathMatch: 'full'},
-  {path: 'auth', component: AuthComponent, children: [
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: '', component: AuthComponent, children: [
       {path: 'login', component: LoginComponent},
       {path: 'registration', component: RegistrationComponent}
   ]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 

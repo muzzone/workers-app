@@ -1,21 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { AuthService } from './core/auth.service';
 import { RouterModule } from '@angular/router';
-import {MatButtonModule, MatCardModule, MatToolbarModule} from '@angular/material';
-import { HeaderComponent } from './header/header.component';
-import {SystemModule} from './system/system.module';
-import {AuthGuard} from './core/auth.guard';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
-import {TokenInterceptor} from './common/classes/token.interceptor';
-import {WorkersService} from "./core/workers.service";
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
 
-
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './header/header.component';
+import { TokenInterceptor } from './shared/classes/token.interceptor';
+import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,17 +20,12 @@ import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
     RouterModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AuthModule,
-    SystemModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCardModule,
-    SnotifyModule
+    SnotifyModule,
+    SharedModule,
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [
-    AuthService,
-    AuthGuard,
-    WorkersService,
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,

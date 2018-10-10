@@ -75,7 +75,7 @@ module.exports.register = async function (req, res) {
         res.status(200).json(response);
       })
       .catch(e => {
-          console.log('create user err', e),
+          console.log('create user err', e);
           res.status(400).json({message: 'Something went wrong!'})
       });
   }

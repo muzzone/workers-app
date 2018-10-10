@@ -9,8 +9,8 @@ module.exports.workers = async function (req, res) {
     page: parseInt(page, 10),
     limit: parseInt(limit, 10)
   };
-  const query = formQuery(req.query);
-
+  const query = formQuery(req.q);
+  
   try {
     const workers = await Worker.paginate(query, pagination);
     res.send(workers);
@@ -21,6 +21,7 @@ module.exports.workers = async function (req, res) {
 
   function formQuery(requestQuery) {
     const query = {};
+    
     requestQuery.name ? query.name = new RegExp(requestQuery.name, 'i') : null;
     requestQuery.gender ? query.gender = requestQuery.gender : null;
     requestQuery.contactInformation ? query.contactInformation = new RegExp(requestQuery.contactInformation, 'i') : null;

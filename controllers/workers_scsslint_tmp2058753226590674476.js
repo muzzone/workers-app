@@ -9,7 +9,22 @@ module.exports.workers = async function (req, res) {
     page: parseInt(page, 10),
     limit: parseInt(limit, 10)
   };
-  const query = formQuery(req.query);
+  const query = {};
+
+  req.query.name ? query.name = new RegExp(req.query.name, 'i') : null;
+  req.query.gender ? query.gender = req.query.gender : null;
+  req.query.contactInformation ? query.contactInformation = new RegExp(req.query.contactInformation, 'i') : null;
+  req.query.position ? query.position = new RegExp(req.query.position, 'i'): null;
+  req.query.salaryMin ? query.salary = {$gte : req.query.salaryMin}: null;
+  req.query.dateFrom ? query.date = {$gte: req.query.dateFrom} : null;
+  if (req.query.salaryMax) {
+    !query.salary? query.salary = {} : null;
+    query.salary.$lte = req.query.salaryMax
+  }
+  if (req.query.dateTo) {
+    !query.date ? query.date = {} : null;
+    query.date.$lte = req.query.dateTo;
+  }
 
   try {
     const workers = await Worker.paginate(query, pagination);
@@ -21,6 +36,7 @@ module.exports.workers = async function (req, res) {
 
   function formQuery(requestQuery) {
     const query = {};
+    
     requestQuery.name ? query.name = new RegExp(requestQuery.name, 'i') : null;
     requestQuery.gender ? query.gender = requestQuery.gender : null;
     requestQuery.contactInformation ? query.contactInformation = new RegExp(requestQuery.contactInformation, 'i') : null;
@@ -35,8 +51,8 @@ module.exports.workers = async function (req, res) {
       !query.date ? query.date = {} : null;
       query.date.$lte = requestQuery.dateTo;
     }
-    return query
   }
+  
 };
 
 // GET http://localhost:8080/api/workers/:id

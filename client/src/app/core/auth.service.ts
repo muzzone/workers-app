@@ -5,7 +5,9 @@ import {Router} from '@angular/router';
 import {SnotifyService} from 'ng-snotify';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthService {
   private activeUser = new ReplaySubject(1);
   constructor(

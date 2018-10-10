@@ -37,6 +37,10 @@ module.exports.workers = async function (req, res) {
     }
     return query
   }
+  
+  function formPagination() {
+    
+  }
 };
 
 // GET http://localhost:8080/api/workers/:id

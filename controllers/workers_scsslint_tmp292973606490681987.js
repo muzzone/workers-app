@@ -6,11 +6,11 @@ module.exports.workers = async function (req, res) {
   const page = req.query.page || 1;
   const limit = req.query.limit || 10;
   const pagination = {
-    page: parseInt(page, 10),
+    page: parseInt(req.query.page || 1, 10),
     limit: parseInt(limit, 10)
   };
   const query = formQuery(req.query);
-
+  
   try {
     const workers = await Worker.paginate(query, pagination);
     res.send(workers);

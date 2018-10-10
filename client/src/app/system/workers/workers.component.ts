@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs/internal/Subscription";
 import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
-import {Worker} from "../../common/models/worker.model";
+import {Worker} from "../../shared/models/worker.model";
 import {SnotifyService} from 'ng-snotify';
 import {ViewChild} from '@angular/core';
 

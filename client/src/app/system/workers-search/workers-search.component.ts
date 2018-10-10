@@ -9,8 +9,7 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./workers-search.component.css']
 })
 export class WorkersSearchComponent implements OnInit {
-  @Output()
-  searchChange = new EventEmitter;
+  @Output() searchChange = new EventEmitter;
 
   searchForm: FormGroup;
 

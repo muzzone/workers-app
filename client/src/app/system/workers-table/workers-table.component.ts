@@ -1,28 +1,27 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from "rxjs/internal/Subscription";
-import {WorkersService} from "../../core/workers.service";
 import {Router} from "@angular/router";
-import {Worker} from "../../shared/models/worker.model";
 import {SnotifyService} from 'ng-snotify';
-import {ViewChild} from '@angular/core';
 
+import {WorkersService} from "../../core/workers.service";
+import {Worker} from "../../shared/models/worker.model";
 
 @Component({
   selector: 'app-workers',
-  templateUrl: './workers.component.html',
-  styleUrls: ['./workers.component.css']
+  templateUrl: './workers-table.component.html',
+  styleUrls: ['./workers-table.component.css']
 })
-export class WorkersComponent implements OnInit, OnDestroy {
+export class WorkersTableComponent implements OnInit, OnDestroy {
 
-  @ViewChild('paginator')
-  paginator: any;
+  @ViewChild('paginator') paginator: any;
 
   workers: Worker[] = [];
   displayedColumns: string[] = ['name', 'contactInformation', 'salary', 'position', 'date', 'gender', 'actions'];
-  wSub: Subscription;
   workersLength: number = 0;
   searchParams: object = {};
   paginationParams: object = {};
+
+  private wSub: Subscription;
 
   constructor(
     private workersService: WorkersService,

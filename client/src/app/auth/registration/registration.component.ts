@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 import {AuthService} from '../../core/auth.service';
 
 @Component({
@@ -29,9 +30,7 @@ export class RegistrationComponent implements OnInit {
 
   checkForLength(control: FormControl) {
     if (control.value.length <= 3) {
-      return {
-        'lengthError': true
-      };
+      return {'lengthError': true};
     }
     return null;
   }

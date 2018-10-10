@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {SnotifyService} from 'ng-snotify';
+
 import {WorkersService} from "../../core/workers.service";
 import {Worker} from "../../shared/models/worker.model";
-import {SnotifyService} from 'ng-snotify';
 
 @Component({
   selector: 'app-edit-worker',
@@ -29,7 +30,7 @@ export class EditWorkerComponent implements OnInit {
     })
   }
 
-  onSubmit(worker) {
+  submit(worker) {
     this.workersService.update(worker, this.workerId).subscribe(res => {
       this.snotifyService.success('Worker updated', {position: 'rightTop'});
     },e => {

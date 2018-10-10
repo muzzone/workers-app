@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+
 import {Worker} from "../../shared/models/worker.model";
 
 @Component({
@@ -8,13 +9,10 @@ import {Worker} from "../../shared/models/worker.model";
   styleUrls: ['./workers-form.component.css']
 })
 export class WorkersFormComponent implements OnInit {
-  @Input()
-  worker: Worker;
-  @Input()
-  title: string;
+  @Input() worker: Worker;
+  @Input() title: string;
 
-  @Output()
-  submit = new EventEmitter;
+  @Output() submit = new EventEmitter;
 
   form: FormGroup;
 

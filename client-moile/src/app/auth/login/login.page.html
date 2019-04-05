@@ -1,3 +1,36 @@
-<ion-content>
-  login
-</ion-content>
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>Login</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <form (ngSubmit)="submitForm()" [formGroup]="loginForm">
+      <ion-grid>
+        <ion-row class="ion-padding-vertical">
+          <ion-col>
+            <ion-item>
+              <ion-label>Login</ion-label>
+              <ion-input formControlName="login" type="text"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-vertical">
+          <ion-col>
+            <ion-item>
+              <ion-label>Password</ion-label>
+              <ion-input formControlName="pass" type="password"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-button [routerLink]="'/auth/registration'" type="button" color="primary">Register</ion-button>
+          </ion-col>
+          <ion-col class="ion-text-end">
+            <ion-button type="submit" color="success">Login</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-card-content>
+</ion-card>

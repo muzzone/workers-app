@@ -40,7 +40,7 @@ app.use('/api/users/', usersRouter);
 app.use('/api/workers/', workersRouter);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/dist/workers-app'))
+  app.use(express.static('client/dist/workers-app'));
 
   app.get('*', (req, res) => {
     res.sendFile(

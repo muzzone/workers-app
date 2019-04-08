@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Worker } from '../../shared/models/worker.model';
+import { Worker } from '../../../shared/models/worker.model';
 
 @Component({
   selector: 'app-worker-list-item',

@@ -1,0 +1,53 @@
+<form (ngSubmit)="submitForm($event)" [formGroup]="form">
+    <ion-grid>
+        <ion-row class="ion-padding-vertical">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-input formControlName="name" placeholder="Full Name" [value]="worker.name"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-vertical">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Salary</ion-label>
+                    <ion-input type="number" formControlName="salary"  placeholder="Salary" [value]="worker.salary"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-vertical">
+            <ion-col>
+                <ion-item>
+                    <ion-label>Contact Information</ion-label>
+                    <ion-textarea formControlName="contactInformation"
+                                  placeholder="Contact Information"
+                                  [value]="worker.contactInformation"></ion-textarea>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-vertical">
+            <ion-col>
+                <ion-label>Gender</ion-label>
+                <ion-select placeholder="Select One" [value]="worker.gender">
+                    <ion-select-option value="Female">Female</ion-select-option>
+                    <ion-select-option value="Male">Male</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-vertical">
+            <ion-col>
+                <ion-label>Position</ion-label>
+                <ion-input formControlName="position" placeholder="Position" [value]="worker.position"></ion-input>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-padding-vertical">
+            <ion-col>
+                <ion-button color="success" color="primary" type="submit" [disabled]="form.invalid">Submit</ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button color="primary">Back</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</form>

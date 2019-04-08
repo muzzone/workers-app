@@ -59,8 +59,9 @@ export class AuthService {
 
   setActiveUser(user, token) {
     const userData = {user, token};
-    this.storage.set('user', JSON.stringify(userData));
-    this.activeUser.next(userData);
+    this.storage.set('user', JSON.stringify(userData)).then(data => {
+      this.activeUser.next(userData);
+    });
   }
 
   getActiveUser() {

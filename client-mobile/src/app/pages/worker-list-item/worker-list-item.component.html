@@ -1,0 +1,24 @@
+<ion-item-sliding>
+  <ion-item [routerLink]="['/', 'worker', worker._id]">
+    <ion-label>
+      <h2>{{worker.name}}</h2>
+      <p>{{worker.gender}}</p>
+      <p>{{worker.position}}</p>
+    </ion-label>
+    <ion-note slot="end">
+      {{worker.date | date: 'yyyy-M-dd hh:mm'}}
+    </ion-note>
+  </ion-item>
+
+  <ion-item-options side="start" [routerLink]="['/worker-edit', worker._id]">
+    <ion-item-option color="success">
+      <ion-icon slot="icon-only" name="create"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+
+  <ion-item-options side="end" (click)="deleteWorker.emit(worker._id)">
+    <ion-item-option color="danger">
+      <ion-icon slot="icon-only" name="trash"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>

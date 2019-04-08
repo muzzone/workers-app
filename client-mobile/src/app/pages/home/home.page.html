@@ -1,0 +1,11 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="workers.length">
+    <app-worker-list-item *ngFor="let worker of workers" [worker]="worker"></app-worker-list-item>
+  </ion-list>
+</ion-content>

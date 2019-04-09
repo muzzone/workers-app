@@ -16,6 +16,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Add worker',
+      url: '/add-worker',
+      icon: 'person-add'
+    },
+    {
       title: 'Login',
       url: '/auth/login',
       icon: 'log-in'
@@ -24,6 +29,11 @@ export class AppComponent {
       title: 'Registration',
       url: '/auth/registration',
       icon: 'create'
+    },
+    {
+      title: 'Logout',
+      url: '/auth/logout',
+      icon: 'log-out'
     }
   ];
   constructor(

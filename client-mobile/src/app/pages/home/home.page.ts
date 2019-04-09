@@ -17,6 +17,7 @@ export class HomePage implements OnInit, OnDestroy {
   workersLength: number = 0;
   searchParams: object = {};
   paginationParams: object = {};
+  page: number = 1;
 
   constructor(
     private workersService: WorkersService,
@@ -36,7 +37,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getParams() {
-    return {...this.searchParams, ...this.paginationParams};
+    return {...this.searchParams, page: this.page};
   }
 
   editWorker(id) {
@@ -58,6 +59,18 @@ export class HomePage implements OnInit, OnDestroy {
         duration: 3000,
         position: 'top'
       }).then(t => t.present());
+    });
+  }
+
+  nextPage(event) {
+    this.page ++;
+    this.workersService.getAll(this.getParams()).subscribe((res: any) => {
+      if (res.docs.length > 0) {
+        this.workers.push(...res.docs);
+        event.target.complete();
+      } else {
+        event.target.disabled = true;
+      }
     });
   }
 

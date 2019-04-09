@@ -14,4 +14,13 @@
     <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
     </app-worker-list-item>
   </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+
 </ion-content>

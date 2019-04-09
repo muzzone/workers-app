@@ -10,17 +10,23 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="workers.length">
-    <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
-    </app-worker-list-item>
-  </ion-list>
+  <ng-container *ngIf="workers.length; else spinner">
+    <ion-list >
+      <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
+      </app-worker-list-item>
+    </ion-list>
 
-  <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
-    <ion-infinite-scroll-content
-        loadingSpinner="bubbles"
-        loadingText="Loading more data...">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
+      <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="Loading more data...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </ng-container>
 
-
+  <ng-template #spinner>
+    <div class="spinner" >
+      <ion-spinner color="primary"></ion-spinner>
+    </div>
+  </ng-template>
 </ion-content>

@@ -3,7 +3,7 @@ import { Worker } from '../../shared/models/worker.model';
 import { WorkersService } from '../../core/workers.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +22,7 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private workersService: WorkersService,
     private router: Router,
-    public toastController: ToastController
+    public toastController: ToastController,
   ) { }
 
   ngOnInit() {

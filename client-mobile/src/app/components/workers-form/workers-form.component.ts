@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Worker } from '../../shared/models/worker.model';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-workers-form',
@@ -15,7 +16,7 @@ export class WorkersFormComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor() { }
+  constructor(private _location: Location) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -32,6 +33,10 @@ export class WorkersFormComponent implements OnInit {
     if (this.form.valid) {
       this.submit.emit(this.form.value);
     }
+  }
+
+  back() {
+    this._location.back();
   }
 
 }

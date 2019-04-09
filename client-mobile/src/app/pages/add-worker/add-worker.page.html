@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Add new worker</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Add new worker
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-content>
-      <app-workers-form></app-workers-form>
+      <app-workers-form [worker]="{}" (submit)="addWorker($event)"></app-workers-form>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -3,6 +3,7 @@ import { Worker } from '../../shared/models/worker.model';
 import { WorkersService } from '../../core/workers.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private workersService: WorkersService,
     private router: Router,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -45,9 +47,17 @@ export class HomePage implements OnInit, OnDestroy {
     this.workersService.delete(id).subscribe(res => {
       this.workers = this.workers.filter(item => item._id !== id);
       this.workersLength --;
-      // this.snotifyService.success('Deleted', {position: 'rightTop'});
+      this.toastController.create({
+        message: 'Deleted',
+        duration: 3000,
+        position: 'top'
+      }).then(t => t.present());
     }, e => {
-      // this.snotifyService.error('Something went wrong!', {position: 'rightTop'})
+      this.toastController.create({
+        message: e.error.message || 'Something went wrong!',
+        duration: 3000,
+        position: 'top'
+      }).then(t => t.present());
     });
   }
 

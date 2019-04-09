@@ -1,9 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>edit-worker</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Edit worker
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngIf="worker">
+    <ion-card-content>
+      <app-workers-form [worker]="worker" (submit)="updateInfo($event)"></app-workers-form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -1,11 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list *ngIf="workers.length">
-    <app-worker-list-item *ngFor="let worker of workers" [worker]="worker"></app-worker-list-item>
+    <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
+    </app-worker-list-item>
   </ion-list>
 </ion-content>

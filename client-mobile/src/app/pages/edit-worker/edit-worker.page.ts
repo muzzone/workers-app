@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WorkersService } from '../../core/workers.service';
-import { ToastController } from '@ionic/angular';
 import { Worker } from '../../shared/models/worker.model';
+import { ToastService } from '../../core/toast.service';
 
 @Component({
   selector: 'app-edit-worker',
@@ -16,7 +16,7 @@ export class EditWorkerPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private workersService: WorkersService,
-    public toastController: ToastController
+    private toastService: ToastService,
   ) { }
 
   ngOnInit() {
@@ -24,27 +24,15 @@ export class EditWorkerPage implements OnInit {
     this.workersService.getById(this.workerId).subscribe((worker: Worker)  => {
       this.worker = worker;
     }, e => {
-      this.toastController.create({
-        message: e.error.message || 'Something went wrong!',
-        duration: 3000,
-        position: 'top'
-      }).then(t => t.present());
+      this.toastService.error(e.error.message);
     });
   }
 
   updateInfo(worker) {
     this.workersService.update(worker, this.workerId).subscribe(res => {
-      this.toastController.create({
-        message: 'Worker updated',
-        duration: 3000,
-        position: 'top'
-      }).then(t => t.present());
+      this.toastService.success('Worker updated');
     },e => {
-      this.toastController.create({
-        message: e.error.message || 'Something went wrong!',
-        duration: 3000,
-        position: 'top'
-      }).then(t => t.present());
+      this.toastService.error(e.error.message);
     });
   }
 

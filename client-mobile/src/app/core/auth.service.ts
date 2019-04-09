@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { ToastController } from '@ionic/angular';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private storage: Storage,
-    public toastController: ToastController
+    private toastService: ToastService
   ) {
     storage.get('user').then(user => {
       this.activeUser.next(JSON.parse(user));
@@ -35,10 +35,7 @@ export class AuthService {
           this.router.navigate(['/']);
         }
       }, e => {
-        this.toastController.create({
-          message: e.error.message || e.error,
-          duration: 5000
-        }).then((t) => t.present());
+        this.toastService.error(e.error.message);
       });
   }
 
@@ -50,10 +47,7 @@ export class AuthService {
           this.router.navigate(['/']);
         }
       }, e => {
-        this.toastController.create({
-          message: e.error.message || e.error,
-          duration: 5000
-        }).then((t) => t.present());
+        this.toastService.error(e.error.message);
       });
   }
 

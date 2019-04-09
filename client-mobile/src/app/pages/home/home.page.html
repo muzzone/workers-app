@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="workers.length; else spinner">
+  <ng-container *ngIf="workers.length">
     <ion-list >
       <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
       </app-worker-list-item>
@@ -23,10 +23,4 @@
       </ion-infinite-scroll-content>
     </ion-infinite-scroll>
   </ng-container>
-
-  <ng-template #spinner>
-    <div class="spinner" >
-      <ion-spinner color="primary"></ion-spinner>
-    </div>
-  </ng-template>
 </ion-content>

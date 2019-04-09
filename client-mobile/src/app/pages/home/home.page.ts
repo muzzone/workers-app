@@ -3,7 +3,8 @@ import { Worker } from '../../shared/models/worker.model';
 import { WorkersService } from '../../core/workers.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
+import { ToastService } from '../../core/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomePage implements OnInit, OnDestroy {
   constructor(
     private workersService: WorkersService,
     private router: Router,
-    public toastController: ToastController,
+    private toastService: ToastService,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -30,9 +32,14 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   fetch(params = {}) {
+    this.loadingController.create({
+      spinner: 'circles',
+      cssClass: 'custom',
+    }).then(l => l.present());
     this.wSub = this.workersService.getAll(params).subscribe((response: any) => {
       this.workers = response.docs;
       this.workersLength = response.total;
+      this.loadingController.dismiss();
     });
   }
 
@@ -48,29 +55,20 @@ export class HomePage implements OnInit, OnDestroy {
     this.workersService.delete(id).subscribe(res => {
       this.workers = this.workers.filter(item => item._id !== id);
       this.workersLength --;
-      this.toastController.create({
-        message: 'Deleted',
-        duration: 3000,
-        position: 'top'
-      }).then(t => t.present());
+      this.toastService.success('Deleted');
     }, e => {
-      this.toastController.create({
-        message: e.error.message || 'Something went wrong!',
-        duration: 3000,
-        position: 'top'
-      }).then(t => t.present());
+      this.toastService.error(e.error.message);
     });
   }
 
   nextPage(event) {
     this.page ++;
     this.workersService.getAll(this.getParams()).subscribe((res: any) => {
-      if (res.docs.length > 0) {
         this.workers.push(...res.docs);
         event.target.complete();
-      } else {
-        event.target.disabled = true;
-      }
+        if (res.pages === res.page) {
+          event.target.disabled = true;
+        }
     });
   }
 

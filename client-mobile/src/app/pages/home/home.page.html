@@ -3,15 +3,22 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button color="primary" size="large" (click)="openFilter()">Filter</ion-button>
+      <ion-button color="primary" size="large" (click)="toggleSearchToolBar()">Search</ion-button>
+    </ion-buttons>
     <ion-title>
       Home
     </ion-title>
+  </ion-toolbar>
+  <ion-toolbar [ngClass]="{'searchToolBar': true, 'collapsed': !showSearch}">
+    <ion-searchbar debounce="500" animated="true" (ionChange)="search($event.target.value)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ng-container *ngIf="workers.length">
-    <ion-list >
+    <ion-list>
       <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
       </app-worker-list-item>
     </ion-list>

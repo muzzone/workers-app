@@ -3,8 +3,9 @@ import { Worker } from '../../shared/models/worker.model';
 import { WorkersService } from '../../core/workers.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ToastService } from '../../core/toast.service';
+import { WorkersFilterComponent } from '../../components/workers-filter/workers-filter.component';
 
 @Component({
   selector: 'app-home',
@@ -16,15 +17,17 @@ export class HomePage implements OnInit, OnDestroy {
 
   workers: Worker[] = [];
   workersLength: number = 0;
-  searchParams: object = {};
+  searchParams: any = {};
   paginationParams: object = {};
   page: number = 1;
+  showSearch = false;
 
   constructor(
     private workersService: WorkersService,
     private router: Router,
     private toastService: ToastService,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    public modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -47,8 +50,15 @@ export class HomePage implements OnInit, OnDestroy {
     return {...this.searchParams, page: this.page};
   }
 
-  editWorker(id) {
-    this.router.navigate(['/edit-worker/' + id]);
+  toggleSearchToolBar() {
+    this.showSearch = !this.showSearch;
+  }
+
+  openFilter() {
+    this.modalController.create({
+      component: WorkersFilterComponent,
+      componentProps: this.searchParams
+    }).then(t => t.present());
   }
 
   deleteWorker(id) {
@@ -66,20 +76,26 @@ export class HomePage implements OnInit, OnDestroy {
     this.workersService.getAll(this.getParams()).subscribe((res: any) => {
         this.workers.push(...res.docs);
         event.target.complete();
-        if (res.pages === res.page) {
+        if (res.pages <= res.page) {
           event.target.disabled = true;
         }
     });
   }
 
-  search(form) {
+  search(str) {
+    this.page = 1;
+    this.searchParams.name = str;
+    this.fetch(this.getParams());
+  }
+
+  submitFilter(form) {
     const params = {};
+    this.page = 1;
     Object.keys(form).forEach(i => {
       form[i] ? params[i] = form[i] : null;
     });
     this.searchParams = params;
     this.fetch(this.getParams());
-    // this.paginator.firstPage();
   }
 
   ngOnDestroy() {

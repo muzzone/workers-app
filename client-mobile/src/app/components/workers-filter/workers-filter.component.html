@@ -8,3 +8,58 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
+<ion-content>
+  <form [formGroup]="filterForm">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Gender</ion-label>
+            <ion-select formControlName="gender">
+              <ion-select-option value="Female">Female</ion-select-option>
+              <ion-select-option value="Male">Male</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked" style="position: absolute">Salary</ion-label>
+            <ion-range
+                class="ion-margin-top" dualKnobs="true" min="100" step="100" max="10000" pin="true" name="Salary" formControlName="salary">
+              <ion-label slot="start">Min</ion-label>
+              <ion-label slot="end">Max</ion-label>
+            </ion-range>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Date from</ion-label>
+            <ion-datetime formControlName="dateFrom" display-format="MMM DD, YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label position="floating">Date to</ion-label>
+            <ion-datetime formControlName="dateTo" display-format="MMM DD, YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-padding-top">
+        <ion-col>
+          <ion-button color="primary" type="button">Back</ion-button>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-button color="success" type="submit" (click)="submit()">Submit</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

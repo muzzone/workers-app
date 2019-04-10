@@ -1,8 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Worker } from '../../shared/models/worker.model';
 import { WorkersService } from '../../core/workers.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { LoadingController, ModalController } from '@ionic/angular';
 import { ToastService } from '../../core/toast.service';
 import { WorkersFilterComponent } from '../../components/workers-filter/workers-filter.component';
@@ -12,13 +11,10 @@ import { WorkersFilterComponent } from '../../components/workers-filter/workers-
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit, OnDestroy {
-  private wSub: Subscription;
-
+export class HomePage implements OnInit {
   workers: Worker[] = [];
   workersLength: number = 0;
   searchParams: any = {};
-  paginationParams: object = {};
   page: number = 1;
   showSearch = false;
 
@@ -39,7 +35,7 @@ export class HomePage implements OnInit, OnDestroy {
       spinner: 'circles',
       cssClass: 'custom',
     }).then(l => l.present());
-    this.wSub = this.workersService.getAll(params).subscribe((response: any) => {
+    this.workersService.getAll(params).subscribe((response: any) => {
       this.workers = response.docs;
       this.workersLength = response.total;
       this.loadingController.dismiss();
@@ -85,21 +81,18 @@ export class HomePage implements OnInit, OnDestroy {
   search(str) {
     this.page = 1;
     this.searchParams.name = str;
-    this.fetch(this.getParams());
+    this.workersService.getAll(this.getParams()).subscribe((response: any) => {
+      this.workers = response.docs;
+    });
   }
 
   submitFilter(form) {
-    const params = {};
     this.page = 1;
+    const params = {};
     Object.keys(form).forEach(i => {
       form[i] ? params[i] = form[i] : null;
     });
     this.searchParams = params;
     this.fetch(this.getParams());
   }
-
-  ngOnDestroy() {
-    this.wSub ? this.wSub.unsubscribe() : null;
-  }
-
 }

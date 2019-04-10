@@ -3,9 +3,9 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-buttons slot="end">
-      <ion-button color="primary" size="large" (click)="openFilter()">Filter</ion-button>
-      <ion-button color="primary" size="large" (click)="toggleSearchToolBar()">Search</ion-button>
+    <ion-buttons slot="end" class="header-btns">
+      <ion-icon name="search" size="large" [color]="showSearch? 'primary': ''" (click)="toggleSearchToolBar()"></ion-icon>
+      <ion-icon name="settings" size="large" (click)="openFilter()"></ion-icon>
     </ion-buttons>
     <ion-title>
       Home

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Worker } from '../../shared/models/worker.model';
 import { WorkersService } from '../../core/workers.service';
 import { Router } from '@angular/router';
-import { LoadingController, ModalController } from '@ionic/angular';
+import { IonInfiniteScroll, LoadingController, ModalController } from '@ionic/angular';
 import { ToastService } from '../../core/toast.service';
 import { WorkersFilterComponent } from '../../components/workers-filter/workers-filter.component';
 
@@ -17,6 +17,9 @@ export class HomePage implements OnInit {
   searchParams: any = {};
   page: number = 1;
   showSearch = false;
+
+  @ViewChild('infiniteScroll')
+  infiniteScroll: IonInfiniteScroll;
 
   constructor(
     private workersService: WorkersService,
@@ -53,8 +56,15 @@ export class HomePage implements OnInit {
   openFilter() {
     this.modalController.create({
       component: WorkersFilterComponent,
-      componentProps: this.searchParams
-    }).then(t => t.present());
+      componentProps: {params: this.searchParams}
+    }).then(m => {
+      m.onDidDismiss().then(result => {
+        if (result.data) {
+          this.submitFilter(result.data);
+        }
+      });
+      m.present();
+    });
   }
 
   deleteWorker(id) {
@@ -73,13 +83,14 @@ export class HomePage implements OnInit {
         this.workers.push(...res.docs);
         event.target.complete();
         if (res.pages <= res.page) {
-          event.target.disabled = true;
+          this.infiniteScroll.disabled = true;
         }
     });
   }
 
   search(str) {
     this.page = 1;
+    try { this.infiniteScroll.disabled = false; } catch (e) {}
     this.searchParams.name = str;
     this.workersService.getAll(this.getParams()).subscribe((response: any) => {
       this.workers = response.docs;
@@ -88,6 +99,7 @@ export class HomePage implements OnInit {
 
   submitFilter(form) {
     this.page = 1;
+    try { this.infiniteScroll.disabled = false; } catch (e) {}
     const params = {};
     Object.keys(form).forEach(i => {
       form[i] ? params[i] = form[i] : null;

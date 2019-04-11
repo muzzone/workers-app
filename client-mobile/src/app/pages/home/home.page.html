@@ -23,7 +23,7 @@
       </app-worker-list-item>
     </ion-list>
 
-    <ion-infinite-scroll threshold="100px" (ionInfinite)="nextPage($event)">
+    <ion-infinite-scroll threshold="100px" #infiniteScroll (ionInfinite)="nextPage($event)">
       <ion-infinite-scroll-content
           loadingSpinner="bubbles"
           loadingText="Loading more data...">

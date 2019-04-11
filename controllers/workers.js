@@ -35,6 +35,14 @@ module.exports.workers = async function (req, res) {
       !query.date ? query.date = {} : null;
       query.date.$lte = requestQuery.dateTo;
     }
+    if (requestQuery.search) {
+        const search = new RegExp(requestQuery.search, 'i');
+        query.$or = [
+            {name: search},
+            {position: search},
+            {contactInformation: search}
+        ]
+    }
     return query
   }
 };

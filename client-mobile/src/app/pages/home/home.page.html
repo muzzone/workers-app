@@ -19,7 +19,7 @@
 <ion-content>
   <ng-container *ngIf="workers.length">
     <ion-list>
-      <app-worker-list-item *ngFor="let worker of workers" [worker]="worker" (deleteWorker)="deleteWorker($event)">
+      <app-worker-list-item *ngFor="let worker of workers; trackBy: trackByFn" [worker]="worker" (deleteWorker)="deleteWorker($event)">
       </app-worker-list-item>
     </ion-list>
 

@@ -91,10 +91,14 @@ export class HomePage implements OnInit {
   search(str) {
     this.page = 1;
     try { this.infiniteScroll.disabled = false; } catch (e) {}
-    this.searchParams.name = str;
+    this.searchParams.search = str;
     this.workersService.getAll(this.getParams()).subscribe((response: any) => {
       this.workers = response.docs;
     });
+  }
+
+  trackByFn(index, item) {
+    return item._id;
   }
 
   submitFilter(form) {

@@ -38,7 +38,6 @@ export class AuthService {
         this.loadingController.dismiss();
         if (res.user && res.token) {
           this.setActiveUser(res.user, res.token);
-          this.router.navigate(['/']);
         }
       }, e => {
         this.loadingController.dismiss();
@@ -55,7 +54,6 @@ export class AuthService {
         this.loadingController.dismiss();
         if (res.user && res.token) {
           this.setActiveUser(res.user, res.token);
-          this.router.navigate(['/']);
         }
       }, e => {
         this.loadingController.dismiss();
@@ -67,6 +65,7 @@ export class AuthService {
     const userData = {user, token};
     this.storage.set('user', JSON.stringify(userData)).then(data => {
       this.activeUser.next(userData);
+      this.router.navigate(['/']);
     });
   }
 

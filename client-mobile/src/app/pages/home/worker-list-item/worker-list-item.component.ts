@@ -14,6 +14,8 @@ export class WorkerListItemComponent implements OnInit {
   @Output()
   deleteWorker: EventEmitter<string> = new EventEmitter;
 
+  expanded: boolean;
+
   constructor() { }
 
   ngOnInit() {}

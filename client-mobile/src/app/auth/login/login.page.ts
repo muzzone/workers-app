@@ -15,11 +15,15 @@ export class LoginPage implements OnInit {
   constructor(private authService: AuthService, public loadingController: LoadingController) { }
 
   ngOnInit() {
-    this.loadingController.dismiss();
+
     this.loginForm = new FormGroup({
       login: new FormControl(''),
       pass: new FormControl(''),
     });
+  }
+
+  ionViewDidEnter() {
+    this.loadingController.dismiss();
   }
 
   submitForm() {

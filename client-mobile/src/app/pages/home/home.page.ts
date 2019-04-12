@@ -11,7 +11,7 @@ import { WorkersFilterComponent } from '../../components/workers-filter/workers-
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnEnter {
   workers: Worker[] = [];
   workersLength: number = 0;
   searchParams: any = {};
@@ -29,7 +29,9 @@ export class HomePage implements OnInit {
     public modalController: ModalController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewDidEnter() {
     this.fetch();
   }
 

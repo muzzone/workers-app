@@ -74,8 +74,9 @@ export class AuthService {
   }
 
   logOut() {
-    this.storage.remove('user');
-    this.activeUser.next(null);
-    this.router.navigate(['/auth']);
+    this.storage.remove('user').then(() => {
+      this.activeUser.next(null);
+      this.router.navigate(['/auth']);
+    });
   }
 }

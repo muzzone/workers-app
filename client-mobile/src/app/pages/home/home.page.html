@@ -4,9 +4,10 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end" class="header-btns">
+      <ion-icon name="list" size="large" [color]="view === 'groups' ? 'primary' : ''" (click)="changeView()"></ion-icon>
       <ion-icon name="search" size="large" [color]="showSearch? 'primary': ''"
                 (click)="toggleSearchToolBar()"></ion-icon>
-      <ion-icon name="settings" size="large" (click)="openFilter()"></ion-icon>
+      <ion-icon name="options" size="large" (click)="openFilter()"></ion-icon>
     </ion-buttons>
     <ion-title>
       Home

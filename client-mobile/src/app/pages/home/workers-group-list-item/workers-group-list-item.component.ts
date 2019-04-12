@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Worker } from '../../../shared/models/worker.model';
+import { WorkersService } from '../../../core/workers.service';
 
 @Component({
   selector: 'app-workers-group-list-item',
@@ -12,11 +13,14 @@ export class WorkersGroupListItemComponent implements OnInit {
   @Input()
   groupItems: Worker[];
 
-  constructor() { }
+  constructor(private workersService: WorkersService) { }
 
-  ngOnInit() {
-    console.log(this.groupName);
-    console.log(this.groupItems);
+  ngOnInit() {}
+
+  deleteWorker(id) {
+    this.workersService.delete(id).subscribe(res => {
+      this.groupItems = this.groupItems.filter(item => item._id !== id);
+    });
   }
 
 }

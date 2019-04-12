@@ -28,6 +28,7 @@
     "cordova-android": "8.0.0",
     "cordova-sqlite-storage": "3.2.0",
     "core-js": "^2.5.4",
+    "lodash": "^4.17.11",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.29"
   },
@@ -44,6 +45,7 @@
     "@ionic/lab": "1.0.24",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/lodash": "^4.14.123",
     "@types/node": "~10.14.2",
     "codelyzer": "~4.5.0",
     "cordova-plugin-device": "^2.0.2",

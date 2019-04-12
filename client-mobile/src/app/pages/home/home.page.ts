@@ -19,7 +19,7 @@ export class HomePage implements OnInit {
   searchParams: any = {};
   page: number = 1;
   showSearch = false;
-  view: View = View.groups;
+  view: View;
 
   @ViewChild('infiniteScroll')
   infiniteScroll: IonInfiniteScroll;
@@ -43,9 +43,8 @@ export class HomePage implements OnInit {
       spinner: 'circles',
       cssClass: 'custom',
     }).then(l => l.present());
-    this.workersService.getAll(params).subscribe((response: any) => {
+    this.workersService[this.view === View.groups ? 'getGroups' : 'getAll'](params).subscribe((response: any) => {
       this.workers = response.docs;
-      const k = this.objectKeys(this.workers);
       this.workersLength = response.total;
       this.loadingController.dismiss();
     });
@@ -73,13 +72,16 @@ export class HomePage implements OnInit {
     });
   }
 
+  changeView() {
+    this.workers = [];
+    this.page = 1;
+    this.view = this.view === View.groups ? View.list : View.groups;
+    this.fetch();
+  }
+
   deleteWorker(id) {
     this.workersService.delete(id).subscribe(res => {
       this.workers = this.workers.filter(item => item._id !== id);
-      this.workersLength --;
-      this.toastService.success('Deleted');
-    }, e => {
-      this.toastService.error(e.error.message);
     });
   }
 
@@ -98,7 +100,7 @@ export class HomePage implements OnInit {
     this.page = 1;
     try { this.infiniteScroll.disabled = false; } catch (e) {}
     this.searchParams.search = str;
-    this.workersService.getAll(this.getParams()).subscribe((response: any) => {
+    this.workersService[this.view === View.groups ? 'getGroups' : 'getAll'](this.getParams()).subscribe((response: any) => {
       this.workers = response.docs;
     });
   }

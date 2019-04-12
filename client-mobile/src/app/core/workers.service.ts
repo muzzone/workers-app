@@ -16,6 +16,15 @@ export class WorkersService {
 
   getAll(params: any = {}) {
     return this.http.get(
+      this.api + 'workers',
+      {params: new HttpParams({
+          fromObject: params
+        })}
+    );
+  }
+
+  getGroups(params: any = {}) {
+    return this.http.get(
       this.api + 'workers/groups',
       {params: new HttpParams({
           fromObject: params

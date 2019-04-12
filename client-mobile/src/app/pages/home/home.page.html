@@ -4,7 +4,8 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end" class="header-btns">
-      <ion-icon name="search" size="large" [color]="showSearch? 'primary': ''" (click)="toggleSearchToolBar()"></ion-icon>
+      <ion-icon name="search" size="large" [color]="showSearch? 'primary': ''"
+                (click)="toggleSearchToolBar()"></ion-icon>
       <ion-icon name="settings" size="large" (click)="openFilter()"></ion-icon>
     </ion-buttons>
     <ion-title>
@@ -17,17 +18,30 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="workers.length">
-    <ion-list>
-      <app-worker-list-item *ngFor="let worker of workers; trackBy: trackByFn" [worker]="worker" (deleteWorker)="deleteWorker($event)">
-      </app-worker-list-item>
-    </ion-list>
+  <ng-container *ngIf="workers">
+    <ng-container [ngSwitch]="view">
 
-    <ion-infinite-scroll threshold="100px" #infiniteScroll (ionInfinite)="nextPage($event)">
-      <ion-infinite-scroll-content
-          loadingSpinner="bubbles"
-          loadingText="Loading more data...">
-      </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
+      <ng-container *ngSwitchCase="'groups'">
+        <app-workers-group-list-item
+            *ngFor="let key of objectKeys(workers)" [groupName]="key" [groupItems]="workers[key]">
+        </app-workers-group-list-item>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <ion-list>
+          <app-worker-list-item
+              *ngFor="let worker of workers; trackBy: trackByFn" [worker]="worker" [showLines]="true"
+              (deleteWorker)="deleteWorker($event)">
+          </app-worker-list-item>
+        </ion-list>
+
+        <ion-infinite-scroll threshold="100px" #infiniteScroll (ionInfinite)="nextPage($event)">
+          <ion-infinite-scroll-content
+              loadingSpinner="bubbles"
+              loadingText="Loading more data...">
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </ion-content>

@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePage } from './home.page';
 import { WorkerListItemComponent } from './worker-list-item/worker-list-item.component';
 import { ComponentsModule } from '../../components/components.module';
+import { WorkersGroupListItemComponent } from './workers-group-list-item/workers-group-list-item.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomePage, WorkerListItemComponent],
+  declarations: [HomePage, WorkerListItemComponent, WorkersGroupListItemComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -1,0 +1,8 @@
+<ion-item-group lines="none">
+    <ion-item-divider>
+      <ion-label>{{groupName}}</ion-label>
+    </ion-item-divider>
+
+  <app-worker-list-item *ngFor="let worker of groupItems" [worker]="worker" [showLines]="false"></app-worker-list-item>
+</ion-item-group>
+

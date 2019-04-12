@@ -3,7 +3,15 @@ const demoData = require('../demo/demo-data');
 const workersHelper = require('../helpers/workers');
 const _ = require('lodash');
 
-// GET http://localhost:8080/api/workers?name=name&gender=male&contactInformation=info&salary=100&position=dev&dateFrom=Sun%20Sep%2002%202018%2000:00:00%20GMT+0300%20(EEST)&dateTo=Fri%20Sep%2028%202018%2000:00:00%20GMT+0300%20(EEST)&page=2&limit=5
+// GET http://localhost:8080/api/workers?
+//  name=name
+//  &gender=male
+//  &contactInformation=info
+//  &salary=100
+//  &position=dev
+//  &dateFrom=Sun%20Sep%2002%202018%2000:00:00%20GMT+0300%20(EEST)
+//  &dateTo=Fri%20Sep%2028%202018%2000:00:00%20GMT+0300%20(EEST)
+//  &page=2&limit=5
 module.exports.workers = async function (req, res) {
   const page = req.query.page || 1;
   const limit = req.query.limit || 10;
@@ -22,12 +30,13 @@ module.exports.workers = async function (req, res) {
   }
 };
 
+// GET http://localhost:8080/api/workers/groups?<query>
 module.exports.getWorkersGroup = async function (req, res) {
     const query = workersHelper.formQuery(req.query);
     try {
         const workers = await Worker.find(query).sort({name: 1});
         const workersGroups = _.groupBy(workers, (worker) => worker.name.substr(0,1).toUpperCase());
-        res.send(workersGroups);
+        res.send({docs: workersGroups});
     } catch (e) {
         console.log('get workers groups error', e);
         res.send(null)

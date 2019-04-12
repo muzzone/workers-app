@@ -1,5 +1,5 @@
 <ion-item-sliding>
-  <ion-item (click)="expanded = !expanded">
+  <ion-item (click)="expanded = !expanded" [lines]="showLines? 'inset' : 'none'">
     <ion-label>
       <h2>{{worker.name}}</h2>
       <p>Salary: {{worker.salary}} $</p>

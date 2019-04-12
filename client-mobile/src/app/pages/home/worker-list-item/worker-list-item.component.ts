@@ -10,6 +10,8 @@ export class WorkerListItemComponent implements OnInit {
 
   @Input()
   worker: Worker;
+  @Input()
+  showLines: boolean;
 
   @Output()
   deleteWorker: EventEmitter<string> = new EventEmitter;

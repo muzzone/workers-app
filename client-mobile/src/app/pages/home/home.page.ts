@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IonInfiniteScroll, LoadingController, ModalController } from '@ionic/angular';
 import { ToastService } from '../../core/toast.service';
 import { WorkersFilterComponent } from '../../components/workers-filter/workers-filter.component';
+import { View } from '../../shared/models/view.enum';
 
 @Component({
   selector: 'app-home',
@@ -12,11 +13,13 @@ import { WorkersFilterComponent } from '../../components/workers-filter/workers-
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  objectKeys = Object.keys;
   workers: Worker[] = [];
   workersLength: number = 0;
   searchParams: any = {};
   page: number = 1;
   showSearch = false;
+  view: View = View.groups;
 
   @ViewChild('infiniteScroll')
   infiniteScroll: IonInfiniteScroll;
@@ -42,6 +45,7 @@ export class HomePage implements OnInit {
     }).then(l => l.present());
     this.workersService.getAll(params).subscribe((response: any) => {
       this.workers = response.docs;
+      const k = this.objectKeys(this.workers);
       this.workersLength = response.total;
       this.loadingController.dismiss();
     });
@@ -104,9 +108,10 @@ export class HomePage implements OnInit {
   }
 
   submitFilter(form) {
+    const params = {};
+
     this.page = 1;
     try { this.infiniteScroll.disabled = false; } catch (e) {}
-    const params = {};
     Object.keys(form).forEach(i => {
       form[i] ? params[i] = form[i] : null;
     });

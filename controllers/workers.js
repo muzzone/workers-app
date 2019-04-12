@@ -1,5 +1,7 @@
 const Worker = require('../models/Workers');
 const demoData = require('../demo/demo-data');
+const workersHelper = require('../helpers/workers');
+const _ = require('lodash');
 
 // GET http://localhost:8080/api/workers?name=name&gender=male&contactInformation=info&salary=100&position=dev&dateFrom=Sun%20Sep%2002%202018%2000:00:00%20GMT+0300%20(EEST)&dateTo=Fri%20Sep%2028%202018%2000:00:00%20GMT+0300%20(EEST)&page=2&limit=5
 module.exports.workers = async function (req, res) {
@@ -9,7 +11,7 @@ module.exports.workers = async function (req, res) {
     page: parseInt(page, 10),
     limit: parseInt(limit, 10)
   };
-  const query = formQuery(req.query);
+  const query = workersHelper.formQuery(req.query);
 
   try {
     const workers = await Worker.paginate(query, pagination);
@@ -18,33 +20,18 @@ module.exports.workers = async function (req, res) {
     console.log('get workers error', e);
     res.send(null)
   }
+};
 
-  function formQuery(requestQuery) {
-    const query = {};
-    requestQuery.name ? query.name = new RegExp(requestQuery.name, 'i') : null;
-    requestQuery.gender ? query.gender = requestQuery.gender : null;
-    requestQuery.contactInformation ? query.contactInformation = new RegExp(requestQuery.contactInformation, 'i') : null;
-    requestQuery.position ? query.position = new RegExp(requestQuery.position, 'i'): null;
-    requestQuery.salaryMin ? query.salary = {$gte : requestQuery.salaryMin}: null;
-    requestQuery.dateFrom ? query.date = {$gte: requestQuery.dateFrom} : null;
-    if (requestQuery.salaryMax) {
-      !query.salary? query.salary = {} : null;
-      query.salary.$lte = requestQuery.salaryMax
+module.exports.getWorkersGroup = async function (req, res) {
+    const query = workersHelper.formQuery(req.query);
+    try {
+        const workers = await Worker.find(query).sort({name: 1});
+        const workersGroups = _.groupBy(workers, (worker) => worker.name.substr(0,1).toUpperCase());
+        res.send(workersGroups);
+    } catch (e) {
+        console.log('get workers groups error', e);
+        res.send(null)
     }
-    if (requestQuery.dateTo) {
-      !query.date ? query.date = {} : null;
-      query.date.$lte = requestQuery.dateTo;
-    }
-    if (requestQuery.search) {
-        const search = new RegExp(requestQuery.search, 'i');
-        query.$or = [
-            {name: search},
-            {position: search},
-            {contactInformation: search}
-        ]
-    }
-    return query
-  }
 };
 
 // GET http://localhost:8080/api/workers/:id

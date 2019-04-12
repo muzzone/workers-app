@@ -11,7 +11,7 @@ import { WorkersFilterComponent } from '../../components/workers-filter/workers-
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit, OnEnter {
+export class HomePage implements OnInit {
   workers: Worker[] = [];
   workersLength: number = 0;
   searchParams: any = {};

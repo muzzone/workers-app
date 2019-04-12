@@ -8,6 +8,8 @@ const passport = require('passport');
 
 router.get('/', passport.authenticate('jwt', { session: false}), workers.workers);
 
+router.get('/groups', passport.authenticate('jwt', {session: false}), workers.getWorkersGroup);
+
 router.get('/:id', passport.authenticate('jwt', { session: false}), workers.getById);
 
 router.post('/', passport.authenticate('jwt', { session: false}), workers.addWorker);
